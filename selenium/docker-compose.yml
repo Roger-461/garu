@@ -1,0 +1,26 @@
+version: '3'
+services:
+
+  hub:
+    image: selenium/hub
+    hostname: selenium-hub
+    ports:
+      - 4444:4444
+    environment:
+      - JAVA_OPTS=-Xmx512m
+
+  chrome:
+    image: selenium/node-chrome
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+      - HUB_PORT=4444
+
+  firefox:
+    image: selenium/node-firefox
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+      - HUB_PORT=4444
